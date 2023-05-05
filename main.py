@@ -79,8 +79,11 @@ def step3(column):
     range = int(len(newWords) / 2)
     return render_template('step3.html', error=None, words=newWords, range=range)
 
-@app.route('/step4/<word>')
-def step4(word):
+@app.route('/step4')
+def step4():
+    word = request.args.get('word')
+    if word is None:
+        return redirect('/')
     session.clear()
     return render_template('step4.html', error=None, word=word)
 
