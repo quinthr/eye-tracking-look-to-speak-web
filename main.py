@@ -10,6 +10,23 @@ app.config['SESSION_TYPE'] = 'filesystem'
 app.config.from_object(__name__)
 Session(app)
 
+@app.errorhandler(404)
+def page_not_found(e):
+    return redirect('/')
+
+@app.errorhandler(401)
+def unauthorized_page(e):
+    return redirect('/')
+
+@app.errorhandler(500)
+def internal_app_error(e):
+    return redirect('/')
+
+
+app.register_error_handler(404, page_not_found)
+app.register_error_handler(401, unauthorized_page)
+app.register_error_handler(500, internal_app_error)
+
 words = [
         "Hello",
         "Thank you",
@@ -39,12 +56,16 @@ def index():
 
 @app.route('/step1/<column>')
 def step1(column):
+    if column is None:
+        return redirect('/')
     arr = np.array(words)
     half = int(len(words) / 2)
     if int(column) == 1:
         newWords = arr[0:half]
-    else:
+    elif int(column) == 2:
         newWords = arr[half:]
+    else:
+        return redirect('/')
     session['words'] = newWords
     range1 = int(len(newWords) / 4)
     range2 = int(len(newWords) / 2)
@@ -53,13 +74,22 @@ def step1(column):
 
 @app.route('/step2/<column>')
 def step2(column):
+    if column is None:
+        return redirect('/')
+    if session.get('words') is None:
+        return redirect('/')
     oldWords = session['words']
+    if len(oldWords) != 8:
+        return redirect('/')
+    print(len(oldWords))
     arr = np.array(oldWords)
     half = int(len(oldWords) / 2)
     if int(column) == 1:
         newWords = arr[0:half]
-    else:
+    elif int(column) == 2:
         newWords = arr[half:]
+    else:
+        return redirect('/')
     session['words'] = newWords
     range1 = int(len(newWords) / 4)
     range2 = int(len(newWords) / 2)
@@ -68,20 +98,34 @@ def step2(column):
 
 @app.route('/step3/<column>')
 def step3(column):
+    print(session.get('words'))
+    if session.get('words') is None:
+        return redirect('/')
     oldWords = session['words']
+    if len(oldWords) != 4:
+        return redirect('/')
     arr = np.array(oldWords)
     half = int(len(oldWords) / 2)
     if int(column) == 1:
         newWords = arr[0:half]
-    else:
+    elif int(column) == 2:
         newWords = arr[half:]
+    else:
+        return redirect('/')
     session['words'] = newWords
     range = int(len(newWords) / 2)
     return render_template('step3.html', error=None, words=newWords, range=range)
 
 @app.route('/step4')
 def step4():
+    if session.get('words') is None:
+        return redirect('/')
+    oldWords = session['words']
     word = request.args.get('word')
+    if len(oldWords) != 2:
+        return redirect('/')
+    if word not in oldWords:
+        return redirect('/')
     if word is None:
         return redirect('/')
     session.clear()
