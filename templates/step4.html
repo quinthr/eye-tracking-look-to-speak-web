@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/step4.css') }}">
+    <title>Look To Speak Web</title>
+</head>
+
+<body>
+
+    <div id="container">
+        <span class="green1"></span>
+        <span class="green2"></span>
+        <span class="green3"></span>
+        <span class="green4"></span>
+    </div>
+    <div class="main-word">
+        <span class="speakWord">{{ word }}</span>
+        <h3 class="countdown-text">
+              Redirecting to Homepage after <span id="countdown">0m 10s</span>
+        </h3>
+    </div>
+
+    <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src="{{ url_for('static', filename='js/step4.js') }}"></script>
+    <script>
+        var newUtterance = new SpeechSynthesisUtterance();
+        synth = window.speechSynthesis;
+        function voices(){
+            for(let voice of synth.getVoices()){
+                if(voice.name === 'Microsoft Mark - English (United States)'){
+                    newUtterance.voice = voice;
+                }
+            }
+            console.log('called');
+            return newUtterance.voice;
+        }
+
+        function countdown () {
+            // Set the date we're counting down to (90 seconds from now)
+            var countDownDate = new Date().getTime() + 10000;
+
+            // Update the countdown every second
+            var x = setInterval(function() {
+
+              // Get today's date and time
+              var now = new Date().getTime();
+
+              // Find the distance between now and the countdown date
+              var distance = countDownDate - now;
+
+              // Calculate the minutes and seconds remaining
+              var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+              var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+              // Display the countdown in the element with id="countdown"
+              document.getElementById("countdown").innerHTML = minutes + "m " + seconds + "s ";
+
+              // If the countdown is finished, display a message
+              if (distance < 0) {
+                clearInterval(x);
+                document.getElementsByClassName("countdown-text")[0].innerHTML = 'Redirecting now...'
+                window.location.href = "/";
+              }
+            }, 1000);
+        }
+
+        function speak() {
+          newUtterance.text = document.getElementsByClassName('speakWord')[0].textContent;
+          newUtterance.voice = getDavidVoice();
+          synth.speak(newUtterance);
+        }
+
+        function getDavidVoice() {
+          const voiceIndex = 1;
+          return synth.getVoices()[voiceIndex];
+        }
+
+        function voiceLoaded() {
+          return synth.getVoices().length;
+        }
+
+        $(document).ready(function() {
+            if (voiceLoaded()) {
+              speak();
+            } else {
+              synth.addEventListener('voiceschanged', speak);
+            }
+            countdown();
+        });
+    </script>
+</body>
+
+</html>

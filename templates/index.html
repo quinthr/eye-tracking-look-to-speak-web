@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Look to Speak</title>
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <section class="header">
+        <h2>LOOK TO SPEAK WEB</h2>
+        <div class="arrows">
+            <i class="fa-solid fa-arrow-left"></i>
+            <i class="fa-solid fa-arrow-up"></i>
+            <i class="fa-solid fa-arrow-right"></i>
+        </div>
+    </section>
+    <div class="row">
+        <a href="{{ url_for('step1', column=1) }}" class="column column-1">
+            <h3 class="look-left">Look Left</h3>
+            {% for i in range(range1) %}
+            <div class="words">
+                <span class="word">{{ words[i] }}</span>
+            </div>
+            {% endfor %}
+            <div class="line">
+                <span class="line-border"></span>
+            </div>
+            {% for i in range(range1, range2) %}
+            <div class="words">
+                <span class="word">{{ words[i] }}</span>
+            </div>
+            {% endfor %}
+        </a>
+        <a href="{{ url_for('step1', column=2) }}" class="column column-2">
+                <h3 class="look-right">Look Right</h3>
+            {% for i in range(range2, range3) %}
+            <div class="words">
+                <span class="word">{{ words[i] }}</span>
+            </div>
+            {% endfor %}
+            <div class="line">
+                <span class="line-border"></span>
+            </div>
+            {% for i in range(range3, words|length) %}
+            <div class="words">
+                <span class="word">{{ words[i] }}</span>
+            </div>
+            {% endfor %}
+        </a>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}" type="text/javascript"></script>
+</body>
+</html>

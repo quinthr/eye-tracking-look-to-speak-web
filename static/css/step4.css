@@ -1,0 +1,191 @@
+ @import url('https://fonts.googleapis.com/css2?family=Oxygen&family=Oxygen+Mono&family=Roboto:wght@700&display=swap');
+
+* {
+    font-family:Roboto;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+ html,
+ body {
+     margin: 0;
+     background: #1a7f39;
+ }
+
+ #container {
+     display: table;
+     margin: 140px auto 0;
+     width: 350px;
+     height: 320px;
+     position: relative;
+ }
+
+ #container span {
+     position: absolute;
+     width: 50px;
+     height: 50px;
+     border-radius: 50%;
+     margin: auto;
+     top: 0;
+     bottom: 0;
+     transition: all 03s;
+ }
+
+ #container span:first-child {
+     background-color: #214130;
+ }
+
+ #container span:nth-child(2) {
+     background-color: #214130;
+     left: 100px;
+ }
+
+ #container span:nth-child(3) {
+     background-color: #214130;
+     left: 200px;
+ }
+
+ #container span:nth-child(4) {
+     background-color: #214130;
+     left: 300px;
+ }
+.main-word {
+    text-align:center;
+}
+
+.speakWord {
+    font-size: 72px;
+    color:white;
+    font-weight:700;
+}
+.countdown-text {
+    margin-top:5em;
+    color:white;
+}
+
+ @keyframes updown {
+     0% {
+         top: 0;
+     }
+     50% {
+         top: 15px;
+     }
+     100% {
+         top: -15px;
+     }
+ }
+
+ @keyframes sound-1 {
+     0% {
+         height: 280px;
+         border-radius: 30px;
+     }
+     10% {
+         height: 190px;
+         border-radius: 30px;
+     }
+     20% {
+         height: 260px;
+         border-radius: 30px;
+     }
+     25% {
+         height: 180px;
+         border-radius: 30px;
+     }
+     30% {
+         height: 280px;
+         border-radius: 30px;
+     }
+     40% {
+         height: 190px;
+         border-radius: 30px;
+     }
+     50% {
+         height: 160px;
+         border-radius: 30px;
+     }
+     60% {
+         height: 130px;
+         border-radius: 30px;
+     }
+     70% {
+         height: 100px;
+         border-radius: 30px;
+     }
+     80% {
+         height: 130px;
+         border-radius: 30px;
+     }
+     85% {
+         height: 100px;
+         border-radius: 30px;
+     }
+     90% {
+         height: 130px;
+         border-radius: 30px;
+     }
+     95% {
+         height: 100px;
+         border-radius: 30px;
+     }
+     100% {
+         height: 50px;
+         border-radius: 50%;
+     }
+ }
+
+ @keyframes sound-2 {
+     0% {
+         height: 180px;
+         border-radius: 30px;
+     }
+     20% {
+         height: 120px;
+         border-radius: 30px;
+     }
+     30% {
+         height: 180px;
+         border-radius: 30px;
+     }
+     40% {
+         height: 120px;
+         border-radius: 30px;
+     }
+     50% {
+         height: 110px;
+         border-radius: 30px;
+     }
+     60% {
+         height: 90px;
+         border-radius: 30px;
+     }
+     70% {
+         height: 70px;
+         border-radius: 30px;
+     }
+     80% {
+         height: 90px;
+         border-radius: 30px;
+     }
+     90% {
+         height: 70px;
+         border-radius: 30px;
+     }
+     100% {
+         height: 50px;
+         border-radius: 50%;
+     }
+ }
+
+ @keyframes finalani {
+     0% {
+         top: 0;
+     }
+     50% {
+         top: -250px;
+     }
+     100% {
+         top: 0;
+     }
+ }
