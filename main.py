@@ -14,13 +14,6 @@ app.config['SESSION_FILE_THRESHOLD'] = 100
 app.config.from_object(__name__)
 Session(app)
 
-@app.errorhandler(404)
-def page_not_found(e):
-    print(e)
-    return redirect('/')
-
-app.register_error_handler(404, page_not_found)
-
 words = [
         "Hello",
         "Thank you",
