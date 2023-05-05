@@ -1,31 +1,25 @@
 from flask import Flask, render_template, request, session, redirect
 import numpy as np
 from flask_session import Session
+from datetime import timedelta
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'lookToSpeakWeb'
 app.config['SESSION_COOKIE_NAME'] ='lookToSpeakWeb'
 app.secret_key = 'lookToSpeakWeb'
 app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SESSION_PERMANENT'] = True
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=5)
+app.config['SESSION_FILE_THRESHOLD'] = 100
 app.config.from_object(__name__)
 Session(app)
 
 @app.errorhandler(404)
 def page_not_found(e):
+    print(e)
     return redirect('/')
-
-@app.errorhandler(401)
-def unauthorized_page(e):
-    return redirect('/')
-
-@app.errorhandler(500)
-def internal_app_error(e):
-    return redirect('/')
-
 
 app.register_error_handler(404, page_not_found)
-app.register_error_handler(401, unauthorized_page)
-app.register_error_handler(500, internal_app_error)
 
 words = [
         "Hello",
@@ -66,7 +60,10 @@ def step1(column):
         newWords = arr[half:]
     else:
         return redirect('/')
+    print(newWords)
     session['words'] = newWords
+    print("Step 1")
+    print("Session get for words: "+str(session.get('words')))
     range1 = int(len(newWords) / 4)
     range2 = int(len(newWords) / 2)
     range3 = int(range2 + range1)
@@ -74,6 +71,8 @@ def step1(column):
 
 @app.route('/step2/<column>')
 def step2(column):
+    print("Step 2")
+    print("Session get for words: "+str(session.get('words')))
     if column is None:
         return redirect('/')
     if session.get('words') is None:
@@ -98,6 +97,8 @@ def step2(column):
 
 @app.route('/step3/<column>')
 def step3(column):
+    print("Step 3")
+    print("Session get for words: "+str(session.get('words')))
     print(session.get('words'))
     if session.get('words') is None:
         return redirect('/')
