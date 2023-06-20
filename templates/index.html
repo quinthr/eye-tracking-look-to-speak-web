@@ -16,7 +16,7 @@
         </div>
     </section>
     <div class="row">
-        <a href="{{ url_for('step1', column=1) }}" class="column column-1">
+        <a href="{{ url_for('step1', column=1) }}" class="webgazer-clickable column column-1">
             <h3 class="look-left">Look Left</h3>
             {% for i in range(range1) %}
             <div class="words">
@@ -32,7 +32,7 @@
             </div>
             {% endfor %}
         </a>
-        <a href="{{ url_for('step1', column=2) }}" class="column column-2">
+        <a href="{{ url_for('step1', column=2) }}" class="webgazer-clickable column column-2">
                 <h3 class="look-right">Look Right</h3>
             {% for i in range(range2, range3) %}
             <div class="words">
